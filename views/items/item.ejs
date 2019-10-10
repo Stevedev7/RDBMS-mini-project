@@ -1,0 +1,17 @@
+<% include ../partials/header %>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                <div class="card" style="width = 100%; margin: 20%">
+                    <img class="card" src="<%= item[0].Image %>" alt="">
+                </div>
+                <h1><%= item[0].Name %></h1>
+                <p><%= item[0].Description %></p>
+                <a class="btn btn-sm btn-success" href="/items/<%= item[0]._id %>/comments/new">Add Comment</a>
+                <% comments.forEach(com=>{ %>
+                    <p><strong><%= com.UserID %></strong> - <%= com.Text %></p>
+                <% }); %>
+            </div>
+        </div>
+    </div>
+<% include ../partials/footer %>

@@ -1,0 +1,40 @@
+
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <h1 style="text-align: center; margin: 25px 0px 7px 0px">Add a new fooditem</h1>
+        </div>
+        <div class="" style="width: 50%; margin: 0px auto">
+            <form class="" action="/items" method="post">
+                <div class="form-group">
+                    <input class="form-control" type="text" name="name" value="" placeholder="Name">
+                </div>
+                <div class="form-group">
+                    <input class="form-control" type="text" name="image" value="" placeholder="Image url">
+                </div>
+                <div class="form-group">
+                    <input type="radio" name="type1" value="Veg" checked> Veg<br>
+                    <input type="radio" name="type1" value="Non-veg"> Non-veg
+                </div>
+                <div class="form-group">
+                    <label for="exampleFormControlSelect1">Category</label>
+                    <select name="type2" class="form-control" id="exampleFormControlSelect1">
+                      <option value="Starters">Starters</option>
+                      <option value="Main course">Main course</option>
+                      <option value="Dessert">Dessert</option>
+                    </select>
+                  </div>
+                <div class="form-group">
+                    <input class="form-control" type="text" name="price" value="" placeholder="Price">
+                </div>
+
+                <div class="form-group">
+                    <textarea name="description" placeholder="Description"class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                </div>
+                <div class="form-group">
+                    <button style="background-color: #78bcc4; color: #f7f8f3" class="btn btn-lg btn-block" type="submit" name="type" value="food">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
