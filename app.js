@@ -27,50 +27,11 @@ app.get("/", (req, res)=> {
     res.render("landing");
 });
 app.get("/items", (req, res) =>{
-    let foodItems = "SELECT * FROM Food";
-    let beverageItems = "Select * from Beverages";
-    db.query(`DROP TABLE IF EXISTS AllItems`, (err, result) =>{
+    let sql = "SELECT Name, _id, Image FROM Food UNION (SELECT Name, _id, Image FROM Beverages) ORDER BY Name";
+    db.query(sql, (err, items) =>{
         if(err) throw err;
-        console.log("AllItems Dropped");
+        res.render("items/index", {items: items});
     });
-    db.query(foodItems, (err, food) =>{
-        if(err) throw err;
-        db.query(beverageItems, (err, bev) => {
-            if(err) throw err;
-            db.query(`CREATE TABLE AllItems (Name varchar(255), _id varchar(25), Image varchar(500))`, (err, all)=>{
-                if(err) throw err;
-                food.forEach(x=>{
-                    db.query(`INSERT INTO AllItems VALUES (\'${x.Name}\', \'${x._id}\', \'${x.Image}\')`, (err, result) =>{
-                        if(err) throw err;
-                    });
-                });
-                bev.forEach(x=>{
-                    db.query(`INSERT INTO AllItems VALUES (\'${x.Name}\', \'${x._id}\', \'${x.Image}\')`, (err, result) =>{
-                        if(err) throw err;
-                    });
-                });
-                db.query(`SELECT * FROM AllItems ORDER BY Name`, (err, allItems) =>{
-                    if(err) throw err;
-                    res.render("items/index", {items: allItems});
-                });
-            });
-        });
-    });
-    db.query(`DROP TABLE IF EXISTS AllItems`, (err, result) =>{
-        if(err) throw err;
-        console.log("AllItems Dropped");
-    });
-    // db.query(foodItems, (err, result) =>{
-    //     if(err) throw err;
-    //     var items = result;
-    //     db.query(`SELECT * FROM Beverages ORDER BY Name`, (err, result)=>{
-    //         if(err) throw err;
-    //         result.forEach(x=>{
-    //             items.push(x);
-    //         });
-    //         res.render("items/index", {items: items});
-    //     });
-    // });
 });
 
 app.post("/items", (req, res) =>{
