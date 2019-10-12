@@ -30,7 +30,7 @@ app.get("/items", (req, res) =>{
     let sql = "SELECT Name, _id, Image FROM Food UNION (SELECT Name, _id, Image FROM Beverages) ORDER BY Name";
     db.query(sql, (err, items) =>{
         if(err) throw err;
-        res.render("items/index", {items: items});
+        res.render("items/index", {items});
     });
 });
 
@@ -71,7 +71,7 @@ app.get("/items/:id", (req, res)=>{
             if(err) throw err;
             db.query(`SELECT * FROM Comments WHERE FoodId = \'${req.params.id}\'`, (err, comments)=>{
                 if(err) throw err;
-                res.render("items/item", {item: item, comments: comments});
+                res.render("items/item", {item, comments});
             });
         });
     } else {
@@ -79,11 +79,12 @@ app.get("/items/:id", (req, res)=>{
             if(err) throw err;
             db.query(`SELECT * FROM Comments WHERE BeverageID = \'${req.params.id}\'`, (err, comments)=>{
                 if(err) throw err;
-                res.render("items/item", {item: item, comments: comments});
+                res.render("items/item", {item, comments});
             });
         });
     }
 });
+
 
 //==========================================================================================================
 //Comments routes
@@ -99,7 +100,7 @@ app.get("/items/:id/comments/new", (req, res) =>{
     let sql = `SELECT Name, _id  FROM ${table} WHERE _id = \'${_id}\'`;
     db.query(sql, (err, item) =>{
         if(err) throw err;
-        res.render("comments/new", {item: item});
+        res.render("comments/new", {item});
     });
 });
 
