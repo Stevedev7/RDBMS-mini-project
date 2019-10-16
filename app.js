@@ -121,10 +121,8 @@ app.post("/items/:id/comments", (req, res)=>{
         let user = "loki@1234",
             comment = req.body.text,
             sql = `INSERT INTO Comments VALUES (\'${user}\', ${fid}, ${bid}, \'${comment}\', \'1999-07-19\')`;
-            console.log(sql);
         db.query(sql, (err, result) =>{
             if(err) throw err;
-            console.log(result);
             res.redirect("/items/" + _id );
         });
     });
