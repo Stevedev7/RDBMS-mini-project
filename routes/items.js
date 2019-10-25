@@ -3,6 +3,7 @@ const db = require('../config/db');
 const makeId = require('../config/makeId');
 const router = express.Router();
 
+
 router.get("/", (req, res) =>{
     let sql = "SELECT Name, _id, Image FROM Food UNION (SELECT Name, _id, Image FROM Beverages) ORDER BY Name";
     db.query(sql, (err, items) =>{

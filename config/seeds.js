@@ -83,7 +83,7 @@ module.exports = () =>{
             db.query(`INSERT INTO Food VALUES(\'${x.name}\', \'${fid}\', \'${x.type1}\', \'${x.image}\', ${x.price}, \'${x.type2}\', \'${desc}\')`, (err, result)=>{
                 if(err) throw err;
                 console.log(`${x.name} added`);
-                db.query(`INSERT INTO Comments values (\'loki@1234\', \'${fid}\', null, \'Lorem ipsum dolor sit amet, consectetur adipiscing elit.\', \'2912-20-90\')`, (err, res) =>{
+                db.query(`INSERT INTO Comments values (\'1234567890\', \'${fid}\', null, \'Lorem ipsum dolor sit amet, consectetur adipiscing elit.\', \'2912-20-90\')`, (err, res) =>{
                     if(err) throw err;
                     console.log(`Comment added to ${x.name}`);
                 });
@@ -97,7 +97,7 @@ module.exports = () =>{
                 db.query(`INSERT INTO Beverages VALUES (\'${y.name}\', \'${bid}\', \'${y.type}\', \'${y.image}\', ${y.price}, \'${desc}\')`, (err, result =>{
                     if(err) throw err;
                     console.log(`${y.name} added`);
-                    db.query(`INSERT INTO Comments values (\'loki@1234\', null, \'${bid}\', \'Lorem ipsum dolor sit amet, consectetur adipiscing elit.\', \'2912-20-90\')`, (err, res) =>{
+                    db.query(`INSERT INTO Comments values (\'1234567890\', null, \'${bid}\', \'Lorem ipsum dolor sit amet, consectetur adipiscing elit.\', \'2912-20-90\')`, (err, res) =>{
                         if(err) throw err;
                         console.log(`Comment added to ${y.name}`);
                     });

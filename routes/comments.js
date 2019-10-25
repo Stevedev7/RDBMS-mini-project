@@ -1,10 +1,11 @@
 const express = require('express');
 const db = require('../config/db');
 const makeId = require('../config/makeId');
+const verify = require('../auth/verification');
 const router = express.Router({mergeParams: true});
 
 
-router.get("/new", (req, res) =>{
+router.get("/new", verify, (req, res) =>{
     var _id = req.params.id;
     if(req.params.id.length === 20){
         var table = "Food";
