@@ -76,6 +76,7 @@ router.get("/login", (req, res) =>{
 });
 
 router.post("/login", async (req, res) =>{
+    debugger;
     //user schema
     const User = {
         username: req.body.username,
@@ -95,7 +96,7 @@ router.post("/login", async (req, res) =>{
                 console.log(err);
             } else {
                 if(user.length !== 0){
-                    bcrypt.compare(User.password, user[0].password, (err, check)=> {
+                    bcrypt.compare(User.password, user[0].Password, (err, check)=> {
                         if (!check) {
                             return res.send("Wrong password");
                         } else {

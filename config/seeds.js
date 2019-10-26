@@ -80,7 +80,7 @@ module.exports = () =>{
         console.log("Food items removed");
         food.forEach(x=>{
             let fid = makeId(20);
-            db.query(`INSERT INTO Food VALUES(\'${x.name}\', \'${fid}\', \'${x.type1}\', \'${x.image}\', ${x.price}, \'${x.type2}\', \'${desc}\')`, (err, result)=>{
+            db.query(`INSERT INTO Food VALUES(\'${fid}\', \'${x.name}\', \'${x.type1}\', \'${x.image}\', ${x.price}, \'${x.type2}\', \'${desc}\')`, (err, result)=>{
                 if(err) throw err;
                 console.log(`${x.name} added`);
                 db.query(`INSERT INTO Comments values (\'1234567890\', \'${fid}\', null, \'Lorem ipsum dolor sit amet, consectetur adipiscing elit.\', \'2912-20-90\')`, (err, res) =>{
@@ -94,7 +94,7 @@ module.exports = () =>{
             console.log("Beverage items removed");
             bev.forEach(y=>{
                 let bid = makeId(25);
-                db.query(`INSERT INTO Beverages VALUES (\'${y.name}\', \'${bid}\', \'${y.type}\', \'${y.image}\', ${y.price}, \'${desc}\')`, (err, result =>{
+                db.query(`INSERT INTO Beverages VALUES (\'${bid}\', \'${y.name}\', \'${y.type}\', \'${y.image}\', ${y.price}, \'${desc}\')`, (err, result =>{
                     if(err) throw err;
                     console.log(`${y.name} added`);
                     db.query(`INSERT INTO Comments values (\'1234567890\', null, \'${bid}\', \'Lorem ipsum dolor sit amet, consectetur adipiscing elit.\', \'2912-20-90\')`, (err, res) =>{
