@@ -40,3 +40,6 @@ create table Users(
     UserName varchar(50),
     Password varchar(1024),
 );
+
+
+select UserName as UserID, Text From Users, Comments where Users._id = Comments.UserID

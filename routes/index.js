@@ -17,6 +17,7 @@ router.get("/register", (req, res) =>{
 });
 
 router.post("/register", async (req, res) =>{
+    //user schema
     const User = {
         firstName : req.body.firstName,
         lastName : req.body.lastName,
@@ -24,6 +25,7 @@ router.post("/register", async (req, res) =>{
         password : req.body.password,
         repeatPassword: req.body.repeatPassword
     }
+    //validation schema
     const schema = Joi.object({
         firstName: Joi.string().min(3).max(30).required(),
         lastName: Joi.string().min(3).max(30).required(),
@@ -32,6 +34,8 @@ router.post("/register", async (req, res) =>{
         repeatPassword: Joi.ref('password')
 
     }).with('password', 'repeatPassword');
+
+    //validate User
 
     const {error, value} = await schema.validate(User);
 
@@ -72,16 +76,18 @@ router.get("/login", (req, res) =>{
 });
 
 router.post("/login", async (req, res) =>{
+    //user schema
     const User = {
         username: req.body.username,
         password: req.body.password
     }
+    //validation schema
     const schema = Joi.object({
         username: Joi.string().alphanum().min(6).max(20).required(),
         password: Joi.string().pattern(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/)
 
     }).with('username', 'password');
-
+    //validate User
     const {error, value} = await schema.validate(User);
     if(!error){
         db.query(`SELECT * FROM Users WHERE UserName = \'${User.username}\'`, (err, user) =>{

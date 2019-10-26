@@ -2,6 +2,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const dotenv = require('dotenv');
+const session = require('express-session');
 
 const db = require('./config/db');
 const seedDB = require("./config/seeds");
@@ -10,7 +11,8 @@ const indexRoutes = require('./routes/index');
 const itemsRoutes = require('./routes/items');
 const commentsRoutes = require('./routes/comments')
 
-dotenv.config();
+dotenv.config();//use environment variables
+//connect to the database
 db.connect(err=>{
     if(err){
         console.log(err);
@@ -23,7 +25,7 @@ const app = express();
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 
-seedDB();
+seedDB(); //seeding the database
 
 app.use("/", indexRoutes);
 
@@ -31,7 +33,4 @@ app.use("/items", itemsRoutes);
 
 app.use("/items/:id/comments", commentsRoutes);
 
-
-app.listen(6969, ()=> {
-    console.log(`Listening to port ${process.env.PORT}` );
-});
+app.listen(process.env.PORT, console.log(`Listening to port ${process.env.PORT}`));

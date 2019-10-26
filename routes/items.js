@@ -3,7 +3,7 @@ const db = require('../config/db');
 const makeId = require('../config/makeId');
 const router = express.Router();
 
-
+//show all items
 router.get("/", (req, res) =>{
     let sql = "SELECT Name, _id, Image FROM Food UNION (SELECT Name, _id, Image FROM Beverages) ORDER BY Name";
     db.query(sql, (err, items) =>{
@@ -43,11 +43,15 @@ router.post("/", (req, res) =>{
 router.get("/new", (req, res) =>{
     res.render("items/new");
 });
+
+// display item details
+
 router.get("/:id", (req, res)=>{
+    //check if the item is food or a beverage
     if(req.params.id.length === 20){
         db.query(`SELECT * FROM Food WHERE _id = \'${req.params.id}\'`, (err, item)=>{
             if(err) throw err;
-            db.query(`SELECT * FROM Comments WHERE FoodId = \'${req.params.id}\'`, (err, comments)=>{
+            db.query(`SELECT UserName AS UserID, Text FROM Users, Comments WHERE Users._id = Comments.UserID AND Comments.FoodID = \'${req.params.id}\'`, (err, comments)=>{
                 if(err) throw err;
                 res.render("items/item", {item, comments});
             });
@@ -55,7 +59,7 @@ router.get("/:id", (req, res)=>{
     } else {
         db.query(`SELECT * FROM Beverages WHERE _id = \'${req.params.id}\'`, (err, item)=>{
             if(err) throw err;
-            db.query(`SELECT * FROM Comments WHERE BeverageID = \'${req.params.id}\'`, (err, comments)=>{
+            db.query(`SELECT UserName AS UserID, Text FROM Users, Comments WHERE Users._id = Comments.UserID AND Comments.BeverageID = \'${req.params.id}\'`, (err, comments)=>{
                 if(err) throw err;
                 res.render("items/item", {item, comments});
             });
