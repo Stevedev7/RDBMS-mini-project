@@ -1,16 +1,26 @@
 use MyRestaurant;
+
+create table Users(
+    _id varchar(30) primary key,
+    FirstName varchar(20),
+    LastName varchar(20),
+    UserName varchar(50),
+    Password varchar(1024)
+);
+
 create table Food(
+    _id varchar(20) primary key,
     Name varchar(255),
-    _id varchar(255) primary key #20 characters,
     DietaryPreference varchar(255),
     Image varchar(500),
     Price integer,
     Category varchar(255),
     Description varchar(1000)
 );
+
 create table Beverages(
+    _id varchar(25) primary key,
     Name varchar(255),
-    _id varchar(255) primary key #25 characters,
     DietaryPreference varchar(255),
     Image varchar(500),
     Price integer,
@@ -26,12 +36,4 @@ create table Comments(
     foreign key(UserID) references Users(_id) on update cascade on delete cascade,
     foreign key(FoodID) references Food(_id) on update cascade on delete cascade,
     foreign key(BeverageID) references Beverages(_id) on update cascade on delete cascade
-);
-
-create table Users(
-    _id varchar(25) primary key,
-    FirstName varchar(20),
-    LastName varchar(20),
-    UserName varchar(50),
-    Password varchar(1024),
 );
