@@ -9,7 +9,9 @@ const seedDB = require("./config/seeds");
 
 const indexRoutes = require('./routes/index');
 const itemsRoutes = require('./routes/items');
-const commentsRoutes = require('./routes/comments')
+const commentsRoutes = require('./routes/comments');
+
+const app = express();
 
 dotenv.config();//use environment variables
 //connect to the database
@@ -21,7 +23,6 @@ db.connect(err=>{
     }
 });
 
-const app = express();
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 

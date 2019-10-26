@@ -1,7 +1,7 @@
 use MyRestaurant;
 create table Food(
     Name varchar(255),
-    FoodID varchar(255) primary key #20 characters,
+    _id varchar(255) primary key #20 characters,
     DietaryPreference varchar(255),
     Image varchar(500),
     Price integer,
@@ -10,16 +10,11 @@ create table Food(
 );
 create table Beverages(
     Name varchar(255),
-    BeverageID varchar(255) primary key #25 characters,
+    _id varchar(255) primary key #25 characters,
     DietaryPreference varchar(255),
     Image varchar(500),
     Price integer,
     Description varchar(1000)
-);
-create table Users(
-    Name varchar(50) not null,
-    _id varchar(50) primary key,
-    password varchar(1000) not null
 );
 
 create table Comments(
@@ -40,6 +35,3 @@ create table Users(
     UserName varchar(50),
     Password varchar(1024),
 );
-
-
-select UserName as UserID, Text From Users, Comments where Users._id = Comments.UserID
