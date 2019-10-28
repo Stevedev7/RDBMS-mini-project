@@ -3,6 +3,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const dotenv = require('dotenv');
 const session = require('express-session');
+const cookieParser = require('cookie-parser');
 
 const db = require('./config/db');
 const seedDB = require("./config/seeds");
@@ -12,6 +13,8 @@ const itemsRoutes = require('./routes/items');
 const commentsRoutes = require('./routes/comments');
 
 const app = express();
+
+app.use(cookieParser())
 
 dotenv.config();//use environment variables
 //connect to the database

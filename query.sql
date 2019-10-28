@@ -4,7 +4,7 @@ create table Users(
     _id varchar(30) primary key,
     FirstName varchar(20),
     LastName varchar(20),
-    UserName varchar(50),
+    Username varchar(50),
     Password varchar(1024)
 );
 
@@ -29,7 +29,7 @@ create table Beverages(
 
 create table Comments(
     UserID varchar(30),
-    FoodId varchar(20),
+    FoodID varchar(20),
     BeverageID varchar(25),
     Text varchar(500) not null,
     date varchar(50),

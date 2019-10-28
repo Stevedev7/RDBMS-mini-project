@@ -50,6 +50,7 @@ router.post("/register", async (req, res) =>{
                     bcrypt.genSalt(10, (err, salt)=>{
                         bcrypt.hash(User.password, salt, (err, hash) =>{
                             let sql = `INSERT INTO USERS VALUES (\'${makeId(30)}\',\'${User.firstName}\',\'${User.lastName}\',\'${User.username}\', \'${hash}\')`;
+                            console.log(s);
                             db.query(sql, (err, result) => {
                                 if(err){
                                     console.log(err);
@@ -91,7 +92,7 @@ router.post("/login", async (req, res) =>{
     //validate User
     const {error, value} = await schema.validate(User);
     if(!error){
-        db.query(`SELECT * FROM Users WHERE UserName = \'${User.username}\'`, (err, user) =>{
+        db.query(`SELECT * FROM Users WHERE Username = \'${User.username}\'`, (err, user) =>{
             if(err){
                 console.log(err);
             } else {
@@ -100,10 +101,10 @@ router.post("/login", async (req, res) =>{
                         if (!check) {
                             return res.send("Wrong password");
                         } else {
+                            console.log("logged in");
                             jwt.sign({id: user[0]._id}, process.env.TOKEN_SECRET, {expiresIn: "1h"}, (err, token) =>{
                                 console.log(token);
-                                res.header("auth-token", token);
-                                res.redirect('/items');
+                                res.clearCookie('userToken').clearCookie('userID').cookie('userToken', token).cookie('userID', user[0].Username).redirect('/items');
                             });
                         }
                     });
@@ -117,8 +118,8 @@ router.post("/login", async (req, res) =>{
     }
 })
 
-// router.get("/logout", (req, res) =>{
-//     //res.header('auth-token', null).redirect("/");
-// })
+router.get("/logout", (req, res, next) =>{
+    res.clearCookie('userToken').clearCookie('userID').redirect('/');
+});
 
 module.exports = router;
