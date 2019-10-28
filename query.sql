@@ -37,3 +37,5 @@ create table Comments(
     foreign key(FoodID) references Food(_id) on update cascade on delete cascade,
     foreign key(BeverageID) references Beverages(_id) on update cascade on delete cascade
 );
+
+INSTERT INTO Users VALUES ('1234567890', 'Test' 'User', 'testuser', 'test1234');
