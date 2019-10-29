@@ -35,10 +35,10 @@ router.post("/", (req, res)=>{
     //save the comment
     db.query(`SELECT * FROM ${table} WHERE _id = \'${_id}\'`, (err, item) =>{
         if(err) res.redirect("/items");
-        let user = "1234567890",
+
+        let user = req.cookies.userid,
             comment = req.body.text,
             sql = `INSERT INTO Comments VALUES (\'${user}\', ${fid}, ${bid}, \'${comment}\', \'1999-07-19\')`;
-            console.log(sql);
         db.query(sql, (err, result) =>{
             if(err) throw err;
             res.redirect("/items/" + _id );

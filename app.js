@@ -8,9 +8,12 @@ const cookieParser = require('cookie-parser');
 const db = require('./config/db');
 const seedDB = require("./config/seeds");
 
+//Routes 
+
 const indexRoutes = require('./routes/index');
 const itemsRoutes = require('./routes/items');
 const commentsRoutes = require('./routes/comments');
+const adminRoutes = require('./routes/admin');
 
 const app = express();
 
@@ -31,10 +34,16 @@ app.set("view engine", "ejs");
 
 seedDB(); //seeding the database
 
+app.use((req, res, next) =>{
+    res.locals.username = req.cookies.username;
+    next();
+})
 app.use("/", indexRoutes);
 
 app.use("/items", itemsRoutes);
 
 app.use("/items/:id/comments", commentsRoutes);
+
+app.use("/admin", adminRoutes);
 
 app.listen(process.env.PORT, console.log(`Listening to port ${process.env.PORT}`));

@@ -19,3 +19,5 @@ App takes customer reviews for the food
     $ npm install
     $ node app.js
 ```
+
+**Go to localhost:6969 to open the app in the browser**
