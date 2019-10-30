@@ -22,7 +22,7 @@ router.post("/", verifyAdmin, (req, res) =>{
             type2 = req.body.type2,
             price = Number(req.body.price),
             id = makeId(20);
-        let sql = `INSERT INTO Food VALUES(\'${name}\', \'${id}\', \'${type1}\', \'${img}\', ${price}, \'${type2}\', \'${description}\')`;
+        let sql = `INSERT INTO Food VALUES(\'${id}\',\'${name}\' , \'${type1}\', \'${img}\', ${price}, \'${type2}\', \'${description}\')`;
         db.query(sql, (err, result)=>{
             if(err) throw err;
             res.redirect("/items");
