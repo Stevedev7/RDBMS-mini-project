@@ -1,0 +1,42 @@
+/* navbar styling */
+
+nav {
+    background-color: #f7444e;
+}
+
+nav ul li a {
+    color: #fef7f7;
+}
+
+body {
+    background-color: #f7f8f3;
+}
+
+/* form styling */
+.form-title {
+    text-align: center;
+    margin: 25px 0px 7px 0px;
+}
+
+.form-div {
+    width: 50%;
+    margin: 0px auto;
+}
+
+.form-btn{
+    background-color: #78bcc4;
+    color: #f7f8f3;
+}
+
+/* items/index page styling */
+.item-alignment {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 5px;
+}
+
+/* single item show page styling */
+.item-img{
+    width = 100%;
+    margin: 20%;
+}

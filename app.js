@@ -8,7 +8,7 @@ const cookieParser = require('cookie-parser');
 const db = require('./config/db');
 const seedDB = require("./config/seeds");
 
-//Routes 
+//Routes
 
 const indexRoutes = require('./routes/index');
 const itemsRoutes = require('./routes/items');
@@ -17,7 +17,8 @@ const adminRoutes = require('./routes/admin');
 
 const app = express();
 
-app.use(cookieParser())
+app.use(cookieParser());
+app.use(express.static(__dirname + "/public"));
 
 dotenv.config();//use environment variables
 //connect to the database
