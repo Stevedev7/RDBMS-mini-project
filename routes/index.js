@@ -13,7 +13,7 @@ router.get("/", (req, res)=> {
 });
 
 router.get("/register", (req, res) =>{
-    res.render("register")
+    res.render("register", {message: ""})
 });
 
 router.post("/register", async (req, res) =>{
@@ -53,7 +53,7 @@ router.post("/register", async (req, res) =>{
                 console.log(err);
             } else {
                 if (user.length !== 0) {
-                    res.send("User already exists");
+                    return res.render("register",{message: "User already exists"});
                 } else {
                     bcrypt.genSalt(10, (err, salt)=>{
                         bcrypt.hash(User.password, salt, (err, hash) =>{
@@ -64,7 +64,7 @@ router.post("/register", async (req, res) =>{
                                     res.sendStatus(400).send(err);
                                     return;
                                 }
-                                res.redirect('/login');
+                                res.render('login', {message: "Login with your newly created account"});
                             });
                         });
                     });
@@ -79,7 +79,7 @@ router.post("/register", async (req, res) =>{
 });
 
 router.get("/login", (req, res) =>{
-    res.render("login");
+    res.render("login", {message: ""});
 });
 
 router.post("/login", async (req, res) =>{
@@ -91,7 +91,7 @@ router.post("/login", async (req, res) =>{
     //validation schema
     const schema = Joi.object({
         username: Joi.string().alphanum().min(6).max(20).required(),
-        password: Joi.string().pattern(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/)
+        password: Joi.string().required()
 
     }).with('username', 'password');
     //validate User
@@ -104,7 +104,7 @@ router.post("/login", async (req, res) =>{
                 if(user.length !== 0){
                     bcrypt.compare(User.password, user[0].Password, (err, check)=> {
                         if (!check) {
-                            return res.send("Wrong password");
+                            return res.render("login", {message:"Wrong password"});
                         } else {
                             jwt.sign({id: user[0]._id}, process.env.TOKEN_SECRET, {expiresIn: "1h"}, (err, token) =>{
                                 res.clearCookie('userToken').clearCookie('userid').clearCookie('username').cookie('userToken', token).cookie('username', user[0].Username).cookie('userid', user[0]._id).redirect('/items');
@@ -112,12 +112,12 @@ router.post("/login", async (req, res) =>{
                         }
                     });
                 } else if(user.length === 0){
-                    res.redirect("/register");
+                    res.render("login", {message: "username doesn't exist"});
                 }
             }
         });
     } else if (error) {
-        res.redirect('/login');
+        res.render('login', {message: "Please enter the valid credentials"});
     }
 })
 
@@ -126,6 +126,7 @@ router.post("/order", (req, res)=>{
 });
 
 router.get("/logout", (req, res, next) =>{
+    delete req.session.authentiated;
     res.clearCookie('userToken').clearCookie('username').clearCookie('userid').redirect('/');
 });
 
