@@ -2,7 +2,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const dotenv = require('dotenv');
-const session = require('express-session');
 const cookieParser = require('cookie-parser');
 
 const db = require('./config/db');

@@ -121,6 +121,10 @@ router.post("/login", async (req, res) =>{
     }
 })
 
+router.post("/order", (req, res)=>{
+    res.send(req.body.qty);
+});
+
 router.get("/logout", (req, res, next) =>{
     res.clearCookie('userToken').clearCookie('username').clearCookie('userid').redirect('/');
 });
