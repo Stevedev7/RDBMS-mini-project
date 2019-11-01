@@ -4,7 +4,6 @@ const bodyParser = require("body-parser");
 const dotenv = require('dotenv');
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
-const flash = require('connect-flash');
 
 const db = require('./config/db');
 const seedDB = require("./config/seeds");
@@ -26,7 +25,6 @@ app.use(session({
   saveUninitialized: true,
   cookie: { secure: true }
 }));
-app.use(flash());
 
 dotenv.config();//use environment variables
 //connect to the database

@@ -8,13 +8,13 @@
             <div class="form-div">
                 <form class="" action="/register" method="post">
                     <div class="form-group">
-                        <input class="form-control" type="text" name="firstName" value="" placeholder="First Name">
+                        <input class="form-control" type="text" name="firstName" value="<%= User.firstName %>" placeholder="First Name">
                     </div>
                     <div class="form-group">
-                        <input class="form-control" type="text" name="lastName" value="" placeholder="Last Name">
+                        <input class="form-control" type="text" name="lastName" value="<%= User.lastName %>" placeholder="Last Name">
                     </div>
                     <div class="form-group">
-                        <input class="form-control" type="text" name="username" value="" placeholder="Username">
+                        <input class="form-control" type="text" name="username" value="<%= User.username %>" placeholder="Username">
                     </div>
                     <div class="form-group">
                         <input class="form-control" type="password" name="password" value="" placeholder="Password">
