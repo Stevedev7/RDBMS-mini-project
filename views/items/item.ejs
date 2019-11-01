@@ -15,7 +15,7 @@
         </div>
         <div class="row">
             <div class="col-md-9">
-                <form class="" action="/order" method="post">
+                <form class="" action="/items/<%= item[0]._id %>/order" method="post">
                     <div class="form-group ">
                         <input class="form-control" type="number" name="qty" value="" placeholder="quantity">
                     </div>

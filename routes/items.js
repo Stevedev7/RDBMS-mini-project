@@ -2,7 +2,7 @@ const express = require('express');
 const db = require('../config/db');
 const makeId = require('../config/makeId');
 const verifyAdmin = require('../auth/adminVerification');
-const router = express.Router();
+const router = express.Router({mergeParams: true});
 
 //show all items
 router.get("/", (req, res) =>{
@@ -66,6 +66,10 @@ router.get("/:id", (req, res)=>{
             });
         });
     }
+});
+
+router.post("/:id/order", (req, res)=>{
+    res.send(req.body.qty);
 });
 
 module.exports = router;

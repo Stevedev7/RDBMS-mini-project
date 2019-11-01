@@ -144,10 +144,6 @@ router.post("/login", async (req, res) =>{
     } else if (error) {
         res.render('login', {User, message: "Please enter the valid credentials"});
     }
-})
-
-router.post("/order", (req, res)=>{
-    res.send(req.body.qty);
 });
 
 router.get("/logout", (req, res, next) =>{

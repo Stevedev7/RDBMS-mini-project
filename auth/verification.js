@@ -4,9 +4,12 @@ const env =require('dotenv');
 env.config();
 
 module.exports = (req, res, next) =>{
+    const User = {
+        username : ""
+    };
     const token = req.cookies.userToken;
     if(!token) {
-        res.render('login', {message: 'please login'});
+        res.render('login', {User, message: 'Please login'});
         return
     }
     try {
@@ -15,8 +18,6 @@ module.exports = (req, res, next) =>{
         req.session.authenticated = true;
         next();
     } catch (e) {
-        req.flash('error', 'Please login');
-        res.locals.message = req.flash();
-        res.redirect('/login');
+        res.redirect('/login', {User, message: "Something went wrong... Please try again"});
     }
 }
