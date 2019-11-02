@@ -1,7 +1,9 @@
 const express = require('express');
+const Joi = require('@hapi/joi');
 const db = require('../config/db');
 const makeId = require('../config/makeId');
 const verifyAdmin = require('../auth/adminVerification');
+const verify = require('../auth/verification');
 const router = express.Router({mergeParams: true});
 
 //show all items
@@ -54,7 +56,7 @@ router.get("/:id", (req, res)=>{
             if(err) throw err;
             db.query(`select Users.UserName, Comments.Text from Users, Comments where comments.FoodID = \'${req.params.id}\'`, (err, comments)=>{
                 if(err) throw err;
-                res.render("items/item", {item, comments});
+                res.render("items/item", {item, comments, message: ""});
             });
         });
     } else {
@@ -62,14 +64,59 @@ router.get("/:id", (req, res)=>{
             if(err) throw err;
             db.query(`select Users.UserName, Comments.Text from Users, Comments where Comments.BeverageID = \'${req.params.id}\'`, (err, comments)=>{
                 if(err) throw err;
-                res.render("items/item", {item, comments});
+                res.render("items/item", {item, comments, message: ""});
             });
         });
     }
 });
 
-router.post("/:id/order", (req, res)=>{
-    res.send(req.body.qty);
+router.post("/:id/order", verify, async (req, res)=>{
+    var _id = req.params.id;
+    var table, fid, bid, field;
+    //Check if the item is a food or a Beverage
+    if(_id.length === 20){
+        table = "Food";
+        fid = `\'${_id}\'`;
+        bid = "null";
+        field = 'FoodID';
+    } else if(_id.length === 25){
+        table = "Beverages";
+        fid = "null";
+        bid = `\'${_id}\'`;
+        field = 'BeverageID';
+    }
+    const order = {
+        qty:req.body.qty
+    }
+    const schema = Joi.object({
+        qty: Joi.number()
+        .integer()
+        .min(1)
+    });
+    const {error, value} = await schema.validate(order);
+    if(!error){
+        //Proceed the order process
+        db.query(`SELECT * FROM ${table} WHERE _id = \'${_id}\'`, (err, item) =>{
+            if(err) res.redirect("/items");
+            db.query(`select Users.UserName, Comments.Text from Users, Comments where Comments.${field} = \'${_id}\'`, (error, comments) =>{
+                let user = req.cookies.userid,
+                    qty = req.body.qty,
+                    sql = `INSERT INTO Orders VALUES (\'${makeId(35)}\', \'${user}\', ${fid}, ${bid}, \'${qty}\', \'1999-07-19\')`;
+                db.query(sql, (err, result) =>{
+                    if(err) throw err;
+                    res.render("items/item", {item, comments, message: "Order placed..."});
+                });
+            })
+        });
+    } else {
+        db.query(`SELECT * FROM ${table} WHERE _id = \'${_id}\'`, (err, item) =>{
+            if(err) res.redirect("/items");
+            db.query(`select Users.UserName, Comments.Text from Users, Comments where Comments.${field} = \'${_id}\'`, (error, comments) =>{
+                    res.render("items/item", {item, comments, message: "Invalid order quantity..."});
+            });
+        });
+    }
+
 });
 
 module.exports = router;

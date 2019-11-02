@@ -38,4 +38,16 @@ create table Comments(
     foreign key(BeverageID) references Beverages(_id) on update cascade on delete cascade
 );
 
+create table Orders(
+    OrderID varchar(35) primary key,
+    UserID varchar(30),
+    FoodID varchar(20),
+    BeverageID varchar(25),
+    Quantity integer not null,
+    date varchar(50),
+    foreign key(UserID) references Users(_id) on update cascade on delete cascade,
+    foreign key(FoodID) references Food(_id) on update cascade on delete cascade,
+    foreign key(BeverageID) references Beverages(_id) on update cascade on delete cascade
+);
+
 INSERT INTO Users VALUES ('1234567890', 'Test', 'User', 'testuser', 'test1234');
