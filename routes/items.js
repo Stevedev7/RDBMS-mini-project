@@ -36,10 +36,10 @@ router.post("/", verifyAdmin, (req, res) =>{
             type1 = req.body.type1,
             price = Number(req.body.price),
             id = makeId(25);
-        let sql = `INSERT INTO Beverages VALUES (\'${name}\', \'${id}\', \'${type1}\', \'${img}\', ${price}, \'${description}\')`;
+        let sql = `INSERT INTO Beverages VALUES (\'${id}\', \'${name}\', \'${type1}\', \'${img}\', ${price}, \'${description}\')`;
         db.query(sql, (err, result)=>{
             if(err) throw err;
-            res.redirect("/items");
+            res.redirect("/admin/items");
         });
     }
 });

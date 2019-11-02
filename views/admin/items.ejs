@@ -1,0 +1,94 @@
+<% include ../partials/header %>
+<div class="container" >
+    <header class="jumbotron">
+        <div class="container" >
+            <h1>This is the Items page</h1>
+        </div>
+    </header>
+        <% for(var i = 0; i < items.length; i+=4) { %>
+            <div class="row text-center item-alignment">
+                <% if(!items[i + 1] && !items[i + 2]&& !items[i + 3]){ %>
+                    <% if (items[i]) { %>
+                        <div class="col-sm-6 col-md-3">
+                            <div class="card" >
+                                <img class="card-img-top" src="<%= items[i].Image%>" alt="">
+                                <div class="card-body">
+                                    <h4 class="card-title"><%= items[i].Name %></h4>
+                                    <a href="/admin/items/<%= items[i]._id%>" class="btn btn-primary">Learn More</a>
+                                </div>
+                            </div>
+                        </div>
+                    <% } %>
+                <% } else if (!items[i + 2] && !items[i + 3]) { %>
+                    <% if (items[i]) { %>
+                        <div class="col-sm-6 col-md-3">
+                            <div class="card" >
+                                <img class="card-img-top" src="<%= items[i].Image%>" alt="">
+                                <div class="card-body">
+                                    <h4 class="card-title"><%= items[i].Name %></h4>
+                                    <a href="/admin/items/<%= items[i]._id%>" class="btn btn-primary">Learn More</a>
+                                </div>
+                            </div>
+                        </div>
+                    <% } %>
+                    <% if (items[i + 1]) { %>
+                        <div class="col-sm-6 col-md-3 lol">
+                            <div class="card" >
+                                <img class="card-img-top lol" src="<%= items[i + 1].Image%>" alt="">
+                                <div class="card-body">
+                                    <h4 class="card-title"><%= items[i + 1].Name %></h4>
+                                    <a href="/admin/items/<%= items[i + 1]._id%>" class="btn btn-primary">Learn More</a>
+                                </div>
+                            </div>
+                        </div>
+                    <% } %>
+                <% } else { %>
+                    <% if (items[i]) { %>
+                        <div class="col-sm-6 col-md-3">
+                            <div class="card" >
+                                <img class="card-img-top" src="<%= items[i].Image%>" alt="">
+                                <div class="card-body">
+                                    <h4 class="card-title"><%= items[i].Name %></h4>
+                                    <a href="/admin/items/<%= items[i]._id%>" class="btn btn-primary">Learn More</a>
+                                </div>
+                            </div>
+                        </div>
+                    <% } %>
+                    <% if (items[i + 1]) { %>
+                        <div class="col-sm-6 col-md-3">
+                            <div class="card" >
+                                <img class="card-img-top" src="<%= items[i + 1].Image%>" alt="">
+                                <div class="card-body">
+                                    <h4 class="card-title"><%= items[i + 1].Name %></h4>
+                                    <a href="/admin/items/<%= items[i + 1]._id%>" class="btn btn-primary">Learn More</a>
+                                </div>
+                            </div>
+                        </div>
+                    <% } %>
+                    <% if (items[i + 2]) { %>
+                        <div class="col-sm-6 col-md-3">
+                            <div class="card" >
+                                <img class="card-img-top" src="<%= items[i + 2].Image%>" alt="">
+                                <div class="card-body">
+                                    <h4 class="card-title"><%= items[i + 2].Name %></h4>
+                                    <a href="/admin/items/<%= items[i + 2]._id%>" class="btn btn-primary">Learn More</a>
+                                </div>
+                            </div>
+                        </div>
+                    <% } %>
+                    <% if (items[i + 3]) { %>
+                        <div class="col-sm-6 col-md-3">
+                            <div class="card" >
+                                <img class="card-img-top" src="<%= items[i + 3].Image%>" alt="">
+                                <div class="card-body">
+                                    <h4 class="card-title"><%= items[i + 3].Name %></h4>
+                                    <a href="/admin/items/<%= items[i + 3]._id%>" class="btn btn-primary">Learn More</a>
+                                </div>
+                            </div>
+                        </div>
+                    <% } %>
+                <% } %>
+            </div>
+        <% } %>
+</div>
+<% include ../partials/footer %>
