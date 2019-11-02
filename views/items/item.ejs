@@ -1,31 +1,43 @@
 <% include ../partials/header %>
 <% include ../partials/infobar %>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-9">
-                <div class="card item-img">
-                    <img class="card" src="<%= item[0].Image %>" alt="">
-                </div>
-                <h1><%= item[0].Name %></h1>
-                <p><%= item[0].Description %></p>
-                <a class="btn btn-sm btn-success" href="/items/<%= item[0]._id %>/comments/new">Add Comment</a>
-                <% comments.forEach(comment => { %>
-                    <p><strong><%= comment.UserName %></strong> - <%= comment.Text %></p>
-                <% }); %>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-9">
-                <form class="" action="/items/<%= item[0]._id %>/order" method="post">
-                    <div class="form-group ">
-                        <input class="form-control" type="number" name="qty" value="" placeholder="quantity">
-                    </div>
-                    <div class="form-group">
-                        <button class="btn-primary btn btn-sm" type="submit" name="button">Order</button>
-                    </div>
-
-                </form>
+<div class="menu">
+    <div class="menu__header" style="background-image: url('<%= item[0].Image %></div>');">
+        <div class="menu__header__inner">
+            <div class="container">
+                <h1 class="menu__header__title"><%= item[0].Name %></h1>
             </div>
         </div>
     </div>
+    <div class="menu__body">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 col-md-9">
+                    <p><%= item[0].Description %></p>
+                    <form class="" action="/items/<%= item[0]._id %>/order" method="post">
+                        <div class="row">
+                            <div class="col-sm-12 col-md-6">
+                                <div class="form-group ">
+                                    <input class="form-control" type="number" name="qty" value=""
+                                        placeholder="quantity">
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-6">
+                                <div class="form-group ">
+                                    <button class="btn-success btn btn-block" type="submit" name="button">Order</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+                <div class="col-sm-12 col-md-3">
+                    <% comments.forEach(comment => { %>
+                    <p><strong><%= comment.UserName %></strong> - <%= comment.Text %></p>
+                    <% }); %>
+                    <a class="btn btn-sm btn-block btn-outline-primary" href="/items/<%= item[0]._id %>/comments/new">Add Comment</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <% include ../partials/footer %>

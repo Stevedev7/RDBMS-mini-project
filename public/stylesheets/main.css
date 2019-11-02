@@ -109,7 +109,29 @@
 }
 
 /* Item page */
+.menu__header {
+    height: 20rem;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
 
+.menu__header__inner {
+    height: 100%;
+    display: flex;
+    background-color: transparent;
+    background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.3));
+}
+
+.menu__header__title {
+    color: #ffffff;
+    font-size: 3rem;
+    margin-top: 15rem;
+}
+
+.menu__body {
+    padding: 3rem 5rem;
+}
 
 /* Infobar */
 .info-bar {
