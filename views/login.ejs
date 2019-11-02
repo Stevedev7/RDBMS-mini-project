@@ -1,24 +1,20 @@
 <% include partials/header %>
-    <div class="container">
-        <h1><%= message %></h1>
-        <div class="row">
-            <div class="col-12" >
-                <h1 class="form-title">Log in</h1>
+<% include partials/infobar %>
+<div class="login">
+    <div class="login__box text-center">
+        <form class="" action="/login" method="post">
+            <div class="form-group">
+                <input class="form-control" type="text" name="username" value="<%= User.username %>"
+                    placeholder="Username">
             </div>
-            <div class="form-div">
-                <form class="" action="/login" method="post">
-                    <div class="form-group">
-                        <input class="form-control" type="text" name="username" value="<%= User.username %>" placeholder="Username">
-                    </div>
-                    <div class="form-group">
-                        <input class="form-control" type="password" name="password" value="" placeholder="Password">
-                    </div>
-                    <div class="form-group">
-                        <button class="btn btn-lg btn-block form-btn" type="submit">Log in</button>
-                    </div>
-                </form>
-                <a href="/register">Signup</a>
+            <div class="form-group">
+                <input class="form-control" type="password" name="password" value="" placeholder="Password">
             </div>
-        </div>
+            <div class="form-group">
+                <button class="btn btn-primary btn-block form-btn" type="submit">Login</button>
+            </div>
+        </form>
+        <span>Not a member? <a href="/register">Signup</a></span>
     </div>
+</div>
 <% include partials/footer %>

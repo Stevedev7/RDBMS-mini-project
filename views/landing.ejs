@@ -1,37 +1,13 @@
 <% include partials/header %>
 
-<div class="home-carousel__container">
-    <div id="home-carousel" class="carousel slide carousel-fade" data-ride="carousel">
-        <ol class="carousel-indicators">
-            <li data-target="#home-carousel" data-slide-to="0" class="active"></li>
-            <li data-target="#home-carousel" data-slide-to="1"></li>
-        </ol>
-        <div class="carousel-inner">
-            <div class="carousel-item active">
-                <img src="/assets/home-slide-1.jpg" class="d-block w-100" alt="...">
-                <div class="carousel-caption d-none d-md-block">
-                    <div class="carousel-caption__inner">
-                        <div class="carousel-caption__text">
-                            <h5>Some Restaurant</h5>
-                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry</p>
-                            <a href="/items">View Menu</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <img src="/assets/home-slide-2.jpg" class="d-block w-100" alt="...">
-                <div class="carousel-caption d-none d-md-block">
-                    <div class="carousel-caption__inner">
-                        <div class="carousel-caption__text">
-                            <h5>Some Restaurant</h5>
-                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry</p>
-                            <a href="/items">View Menu</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+<header class="page__header">
+    <div class="page__header__inner">
+        <div class="page__header__content">
+            <h5>Some Restaurant</h5>
+            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry</p>
+            <a href="/items">View Menu</a>
         </div>
     </div>
+</header>
 
-    <% include partials/footer %>
+<% include partials/footer %>
