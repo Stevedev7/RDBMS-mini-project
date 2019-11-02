@@ -52,7 +52,7 @@ router.post("/", (req, res)=>{
             db.query(`SELECT * FROM ${table} WHERE _id = \'${_id}\'`, (err, item) =>{
                 if(err) res.redirect("/items");
                 db.query(`select Users.UserName, Comments.Text from Users, Comments where Comments.${field} = \'${_id}\'`, (error, comments) =>{
-                        res.render("items/item", {item, comments, message: "You haven't ordered this item yet"});
+                        res.render("items/item", {item, comments, message: { text: "You haven't ordered this item yet", error: true }});
                 })
             });
         }

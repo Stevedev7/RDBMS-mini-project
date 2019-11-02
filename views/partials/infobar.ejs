@@ -1,9 +1,9 @@
-<% if (message != '') { %>
-<div class="info-bar">
+<% if (message) { %>
+<div class="info-bar <%= (message.error ? 'error' : '')  %>">
     <div class="container">
         <div class="row no-gutters">
             <div class="col">
-                <h6 class="info-bar__text"><%= message %></h6>
+                <h6 class="info-bar__text"><%= message.text %></h6>
             </div>
         </div>
     </div>

@@ -135,15 +135,22 @@
 
 /* Infobar */
 .info-bar {
-    border-top: 1px solid #CC240E;
-    border-bottom: 1px solid #CC240E;
-    background-color: rgba(204, 36, 14, 0.3);
+    color: #B2D234;
+    border-top: 1px solid #B2D234;
+    border-bottom: 1px solid #B2D234;
+    background-color: rgba(178, 210, 52, 0.3);
     padding: 0.5rem 0;
     text-align: center;
 }
 
-.info-bar__text {
+.info-bar.error {
     color: #CC240E;
+    border-top: 1px solid #CC240E;
+    border-bottom: 1px solid #CC240E;
+    background-color: rgba(204, 36, 14, 0.3);
+}
+
+.info-bar__text {
     margin: 0;
 }
 
