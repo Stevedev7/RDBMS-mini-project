@@ -13,6 +13,14 @@
             <div class="row">
                 <div class="col-sm-12 col-md-9">
                     <p><%= item[0].Description %></p>
+
+                    <!-- <div class="">
+                            <span>
+                                    <span style="font-size: 40px" class="float-lg-right container2"><%= item[0].Price %></span>
+                                <img style="width: 30px; height: auto ;padding :47px 0" class="float-lg-right" src="https://img.icons8.com/material-outlined/64/000000/rupee.png">
+                            </span>
+                        </div> -->
+
                     <div class="row">
                         <% if(type === 'food'){ %>
                                 <div class="col-sm-12 col-md-6 col-lg-6">
@@ -27,19 +35,33 @@
                             </ul>
                         </div>
                     </div>
-                        <div class="row">
-                            <div class="col-sm-12 col-md-6">
+                       <!-- price -->
+                       
+                            <span>
+                                    <span style="font-size: 30px" class="float-lg-right container2"><%= item[0].Price %></span>
+                                <img style="width: 30px; height:auto;padding: 40px 0 0 0;" class="float-lg-right container2" src="https://img.icons8.com/material-outlined/64/000000/rupee.png">
+                            </span>
+                        
+                       <!-- <div class="float-lg-right">
+                            <span>
+                                    <img style="width: 30px; height: auto ;padding: 20px 0;" src="https://img.icons8.com/material-outlined/64/000000/rupee.png">
+                                    <span style="font-size: 30px" ><%= item[0].Price %></span>
+                            </span>
+                        </div>  -->
+                            <!-- price -->
+                            <div class=container1>
+                                <div class="float-lg-right">
+                                        <div class="form-group ">
+                                            <button class="btn-success btn btn-block" type="submit" name="button">Order Now</button>
+                                        </div>
+                                    </div>
+                            <div class="float-lg-right">
                                 <div class="form-group ">
                                     <input class="form-control" type="number" name="qty" value=""
                                         placeholder="quantity">
-                                </div>
-                            </div>
-                            <div class="col-sm-12 col-md-6">
-                                <div class="form-group ">
-                                    <button class="btn-success btn btn-block" type="submit" name="button">Order</button>
-                                </div>
                             </div>
                         </div>
+                    </div>
 
                     </form>
                 </div>
@@ -56,7 +78,7 @@
                         </div>
                     </form>
                 </div>
-            </div>
+            <!-- </div> -->
         </div>
     </div>
 </div>
