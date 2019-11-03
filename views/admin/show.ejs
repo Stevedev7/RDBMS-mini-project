@@ -1,18 +1,38 @@
 <% include ../partials/header %>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-9">
-                <div class="card item-img">
-                    <img class="card" src="<%= item[0].Image %>" alt="">
+        <div class="menu">
+            <div class="menu__header" style="background-image: url('<%= item[0].Image %></div>');">
+                <div class="menu__header__inner">
+                    <div class="container">
+                        <h1 class="menu__header__title"><%= item[0].Name %></h1>
+                    </div>
                 </div>
-                <h1><%= item[0].Name %></h1>
-                <p><%= item[0].Description %></p>
+            </div>
+            <div class="menu__body">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-12">
+                            <p><%= item[0].Description %></p>
+                            <div class="">
+                                <span>
+                                    <img style="width: 30px; heigth: auto" src="https://img.icons8.com/material-outlined/64/000000/rupee.png">
+                                    <span style="font-size: 25px"><%= item[0].Price %></span>
+                                </span>
+                            </div>
+                        </div>
+                        <% if(type === 'food'){ %>
+                                <div class="col-sm-12 col-md-6 col-lg-6">
+                                <ul class="list-group">
+                                    <li class="list-group-item"><%= item[0].Category %></li>
+                                </ul>
+                            </div>
+                        <% } %>
+                        <div class="col-sm-12 col-md-6 col-lg-6">
+                            <ul class="list-group">
+                                <li class="list-group-item"><%= item[0].DietaryPreference %></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-9">
-                <a class="btn btn-primary " href="#">Edit</a>
-            </div>
-        </div>
-    </div>
 <% include ../partials/footer %>

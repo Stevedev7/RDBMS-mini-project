@@ -54,17 +54,17 @@ router.get("/:id", (req, res)=>{
     if(req.params.id.length === 20){
         db.query(`SELECT * FROM Food WHERE _id = \'${req.params.id}\'`, (err, item)=>{
             if(err) throw err;
-            db.query(`select Users.UserName, Comments.Text from Users, Comments where comments.FoodID = \'${req.params.id}\'`, (err, comments)=>{
+            db.query(`select Users.UserName, Comments.Text from Users, Comments where Users._id = Comments.UserID AND comments.FoodID = \'${req.params.id}\'`, (err, comments)=>{
                 if(err) throw err;
-                res.render("items/item", {item, comments, message: ""});
+                res.render("items/item", {item, comments, message: "", error: false, type: 'food'});
             });
         });
     } else {
         db.query(`SELECT * FROM Beverages WHERE _id = \'${req.params.id}\'`, (err, item)=>{
             if(err) throw err;
-            db.query(`select Users.UserName, Comments.Text from Users, Comments where Comments.BeverageID = \'${req.params.id}\'`, (err, comments)=>{
+            db.query(`select Users.UserName, Comments.Text from Users, Comments where Users._id = Comments.UserID AND Comments.BeverageID = \'${req.params.id}\'`, (err, comments)=>{
                 if(err) throw err;
-                res.render("items/item", {item, comments, message: ""});
+                res.render("items/item", {item, comments, message: "", error: false, type: 'bev'});
             });
         });
     }
@@ -98,21 +98,21 @@ router.post("/:id/order", verify, async (req, res)=>{
         //Proceed the order process
         db.query(`SELECT * FROM ${table} WHERE _id = \'${_id}\'`, (err, item) =>{
             if(err) res.redirect("/items");
-            db.query(`select Users.UserName, Comments.Text from Users, Comments where Comments.${field} = \'${_id}\'`, (error, comments) =>{
+            db.query(`select Users.UserName, Comments.Text from Users, Comments where Users._id = Comments.UserID AND Comments.${field} = \'${_id}\'`, (error, comments) =>{
                 let user = req.cookies.userid,
                     qty = req.body.qty,
                     sql = `INSERT INTO Orders VALUES (\'${makeId(35)}\', \'${user}\', ${fid}, ${bid}, \'${qty}\', \'1999-07-19\')`;
                 db.query(sql, (err, result) =>{
                     if(err) throw err;
-                    res.render("items/item", {item, comments, message: "Order placed..."});
+                    res.render("items/item", {item, comments, message: "Order placed...", error: false});
                 });
             })
         });
     } else {
         db.query(`SELECT * FROM ${table} WHERE _id = \'${_id}\'`, (err, item) =>{
             if(err) res.redirect("/items");
-            db.query(`select Users.UserName, Comments.Text from Users, Comments where Comments.${field} = \'${_id}\'`, (error, comments) =>{
-                    res.render("items/item", {item, comments, message: "Invalid order quantity..."});
+            db.query(`select Users.UserName, Comments.Text from Users, Comments where Users._id = Comments.UserID AND Comments.${field} = \'${_id}\'`, (error, comments) =>{
+                    res.render("items/item", {item, comments, message: "Invalid order quantity...", error: true});
             });
         });
     }

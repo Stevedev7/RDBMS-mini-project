@@ -9,7 +9,7 @@ module.exports = (req, res, next) =>{
     };
     const token = req.cookies.userToken;
     if(!token) {
-        res.render('login', {User, message: 'Please login'});
+        res.render('login', {User, message: 'Please login', error: true});
         return
     }
     try {
@@ -18,6 +18,6 @@ module.exports = (req, res, next) =>{
         req.session.authenticated = true;
         next();
     } catch (e) {
-        res.redirect('/login', {User, message: "Something went wrong... Please try again"});
+        res.render('login', {User, message: "Something went wrong... Please try again", error: true});
     }
 }

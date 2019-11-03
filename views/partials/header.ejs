@@ -22,29 +22,23 @@
               <li class="nav-item">
                 <a class="nav-link" href="/items">Menu</a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/login">Login</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/register">Sign Up</a>
-              </li>
             </ul>
-            <!-- <ul class="nav justify-content-end">
-                <% if(!username){ %>
+            <ul class="navbar-nav justify-content-end">
+              <% if(!username) {%>
+                  <li class="nav-item">
+                    <a class="nav-link" href="/login">Login</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="/register">Sign Up</a>
+                  </li>
+                <% } else {%>
                     <li class="nav-item">
-                        <a class="nav-link" href="/login">Login</a>
+                      <a class="nav-link" href="#">Hi <%= username %></a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="/register">Sign up</a>
-                    </li>
-                <% } else { %>
-                    <li class="nav-item nav">
-                      <a class="nav-link" href="#">Logged is as <%= username %></a>
-                    </li>
-                    <li class="nav-item nav">
-                      <a class="nav-link" style="" href="/logout">Logout</a>
+                      <a class="nav-link" href="/logout">Logout</a>
                     </li>
                 <% } %>
-            </ul> -->
+            </ul>
           </div>
         </nav>

@@ -19,7 +19,7 @@ router.get("/register", (req, res) =>{
         lastName : "",
         username : ""
     };
-    res.render("register", {User, message: ""})
+    res.render("register", {User, message: "", error: false})
 });
 
 router.post("/register", async (req, res) =>{
@@ -56,20 +56,20 @@ router.post("/register", async (req, res) =>{
     if (!error) {
         db.query(`SELECT * FROM Users WHERE Username = \'${User.username}\'`, (err, user) =>{
             if(err){
-                res.render('register', {message: "Something went wrong please try again"});
+                res.render('register', {message: "Something went wrong please try again", error: true});
             } else {
                 if (user.length !== 0) {
-                    return res.render("register",{User, message: "User already exists"});
+                    return res.render("register",{User, message: "User already exists", error: true});
                 } else {
                     bcrypt.genSalt(10, (err, salt)=>{
                         bcrypt.hash(User.password, salt, (err, hash) =>{
                             let sql = `INSERT INTO USERS VALUES (\'${makeId(30)}\',\'${User.firstName}\',\'${User.lastName}\',\'${User.username}\', \'${hash}\')`;
                             db.query(sql, (err, result) => {
                                 if(err){
-                                    res.render('register', {User, message: "Something went wrong please try again"});
+                                    res.render('register', {User, message: "Something went wrong please try again", error: true});
                                     return;
                                 }
-                                res.render('login', {User, message: "Login with your newly created account"});
+                                res.render('login', {User, message: "Login with your newly created account", error: false});
                             });
                         });
                     });
@@ -79,22 +79,22 @@ router.post("/register", async (req, res) =>{
     } else {
 
         if (error.details[0].type === "string.empty") {
-            res.render("register", {User, message:"Cannot leave fields blank"});
+            res.render("register", {User, message:"Cannot leave fields blank", error: true});
             return
         } else if (error.details[0].type === "string.min") {
-            res.render("register", {User, message:`${capitalize(error.details[0].context.label)} must be at least ${error.details[0].context.limit} characters long`});
+            res.render("register", {User, message:`${capitalize(error.details[0].context.label)} must be at least ${error.details[0].context.limit} characters long`, error: true});
             return
         } else if (error.details[0].type === "any.only") {
-            res.render("register", {User, message:"Passwords dont match"});
+            res.render("register", {User, message:"Passwords dont match", error: true});
             return
         }else if (error.details[0].type === "string.max") {
-            res.render("register", {User, message:`${capitalize(error.details[0].context.label)} should not exceed ${error.details[0].context.limit} characters`});
+            res.render("register", {User, message:`${capitalize(error.details[0].context.label)} should not exceed ${error.details[0].context.limit} characters`, error: true});
             return
         } else if (error.details[0].type === "string.pattern.base") {
-            res.render("register", {User, message:`password must contain minimum eight characters, at least one letter and one number`});
+            res.render("register", {User, message:`password must contain minimum eight characters, at least one letter and one number`, error: true});
             return
         }
-        res.render('register', {User, message: "Something went wrong please try again"});
+        res.render('register', {User, message: "Something went wrong please try again", error: true});
     }
 
 
@@ -104,7 +104,7 @@ router.get("/login", (req, res) =>{
     const User = {
         username : ""
     };
-    res.render("login", {User, message: ""});
+    res.render("login", {User, message: "", error: false});
 });
 
 router.post("/login", async (req, res) =>{
@@ -124,12 +124,12 @@ router.post("/login", async (req, res) =>{
     if(!error){
         db.query(`SELECT * FROM Users WHERE Username = \'${User.username}\'`, (err, user) =>{
             if(err){
-                res.render('login', {message: "Something went wrong please try again"});
+                res.render('login', {message: "Something went wrong please try again", error: true});
             } else {
                 if(user.length !== 0){
                     bcrypt.compare(User.password, user[0].Password, (err, check)=> {
                         if (!check) {
-                            return res.render("login", {User, message:"Username or password incorrect"});
+                            return res.render("login", {User, message:"Username or password incorrect", error: true});
                         } else {
                             jwt.sign({id: user[0]._id}, process.env.TOKEN_SECRET, {expiresIn: "1h"}, (err, token) =>{
                                 res.clearCookie('userToken').clearCookie('userid').clearCookie('username').cookie('userToken', token).cookie('username', user[0].Username).cookie('userid', user[0]._id).redirect('/items');
@@ -137,12 +137,12 @@ router.post("/login", async (req, res) =>{
                         }
                     });
                 } else if(user.length === 0){
-                    res.render("login", {User, message: "Username or password incorrect"});
+                    res.render("login", {User, message: "Username or password incorrect", error: true});
                 }
             }
         });
     } else if (error) {
-        res.render('login', {User, message: "Please enter the valid credentials"});
+        res.render('login', {User, message: "Please enter the valid credentials", error: true});
     }
 });
 

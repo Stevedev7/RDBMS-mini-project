@@ -19,7 +19,7 @@ router.get("/new", verify, (req, res) =>{
     });
 });
 
-router.post("/", (req, res)=>{
+router.post("/", verify, (req, res)=>{
     var _id = req.params.id;
     var table, fid, bid, field;
     //Check if the item is a food or a Beverage
@@ -51,8 +51,8 @@ router.post("/", (req, res)=>{
         } else {
             db.query(`SELECT * FROM ${table} WHERE _id = \'${_id}\'`, (err, item) =>{
                 if(err) res.redirect("/items");
-                db.query(`select Users.UserName, Comments.Text from Users, Comments where Comments.${field} = \'${_id}\'`, (error, comments) =>{
-                        res.render("items/item", {item, comments, message: "You haven't ordered this item yet"});
+                db.query(`select Users.UserName, Comments.Text from Users, Comments where  Users._id = Comments.UserID AND Comments.${field} = \'${_id}\'`, (error, comments) =>{
+                        res.render("items/item", {item, comments, message: "You haven't ordered this item yet", error: true});
                 })
             });
         }

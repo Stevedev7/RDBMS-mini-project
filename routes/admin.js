@@ -22,7 +22,7 @@ router.get("/", verify, (req, res) =>{
     res.render("admin/home");
 });
 
-router.get("/items", (req, res) =>{
+router.get("/items", verify, (req, res) =>{
     let sql = "SELECT Name, _id, Image FROM Food UNION (SELECT Name, _id, Image FROM Beverages) ORDER BY Name";
     db.query(sql, (err, items) =>{
         if(err) throw err
@@ -31,17 +31,17 @@ router.get("/items", (req, res) =>{
 });
 
 
-router.get("/items/:id", (req, res) =>{
+router.get("/items/:id", verify, (req, res) =>{
     //check if the item is food or a beverage
     if(req.params.id.length === 20){
         db.query(`SELECT * FROM Food WHERE _id = \'${req.params.id}\'`, (err, item)=>{
             if(err) throw err;
-            res.render("admin/show", {item});
+            res.render("admin/show", {item, type: "food"});
         });
     } else {
         db.query(`SELECT * FROM Beverages WHERE _id = \'${req.params.id}\'`, (err, item)=>{
             if(err) throw err;
-            res.render("admin/show", {item});
+            res.render("admin/show", {item, type: "bev"});
         });
     }
 });
