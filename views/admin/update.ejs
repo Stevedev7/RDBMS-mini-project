@@ -1,0 +1,58 @@
+<% include ../partials/header %>
+        <div class="menu">
+            <div class="menu__header" style="background-image: url('<%= item[0].Image %></div>');">
+                <div class="menu__header__inner">
+                    <div class="container">
+                        <h1 class="menu__header__title"><%= item[0].Name %></h1>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container">
+                <div class="form-div" >
+                    <form class="" action="/admin/items/change" method="post">
+                        <div class="form-group">
+                            <input class="form-control" type="text" name="name" value="<%= item[0].Name %>" placeholder="Name">
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" type="text" name="image" value="<%= item[0].Image %>" placeholder="Image url">
+                        </div>
+
+                        <% if(type === 'food'){ %>
+                            <div class="form-group">
+                                <input type="radio" name="type1" value="Veg" checked> Veg<br>
+                                <input type="radio" name="type1" value="Non-veg"> Non-veg
+                            </div>
+
+                            <div class="form-group">
+                                <label for="exampleFormControlSelect1">Category</label>
+                                <select name="type2" class="form-control" id="exampleFormControlSelect1">
+                                  <option value="Starters">Starters</option>
+                                  <option value="Main course">Main course</option>
+                                  <option value="Dessert">Dessert</option>
+                                </select>
+                            </div>
+
+                        <% } else{ %>
+                            <div class="form-group">
+                                <input type="radio" name="type1" value="Alcoholic" checked> Alcoholic<br>
+                                <input type="radio" name="type1" value="Non-alcoholic"> Non-Alcoholic
+                            </div>
+                        <% } %>
+                        <div class="form-group">
+                            <input class="form-control" type="text" name="price" value="<%= item[0].Price %>" placeholder="Price">
+                        </div>
+
+                        <div class="form-group">
+                            <textarea name="description" placeholder="Description"class="form-control" id="exampleFormControlTextarea1" rows="3"><%= item[0].Description %></textarea>
+                        </div>
+                        <div class="form-group">
+                            <button class="btn btn-lg btn-block btn-primary" type="submit" name="type" value="<%= item[0]._id %>">Submit</button>
+                        </div>
+                    </form>
+                    
+                </div>
+            </div>
+
+        </div>
+<% include ../partials/footer %>

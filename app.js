@@ -53,4 +53,8 @@ app.use("/items/:id/comments", commentsRoutes);
 
 app.use("/admin", adminRoutes);
 
+app.get("*", (req, res) => {
+    res.send("page not found")
+})
+
 app.listen(process.env.PORT, console.log(`Listening to port ${process.env.PORT}`));

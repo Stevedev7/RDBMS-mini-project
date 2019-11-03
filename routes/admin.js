@@ -87,6 +87,84 @@ router.post("/", async (req, res) =>{
         console.log(error);
         res.redirect('/login');
     }
-})
+});
+
+router.get("/items/:id/change", verify, (req, res) =>{
+    if(req.params.id.length === 20){
+        db.query(`SELECT * FROM Food WHERE _id = \'${req.params.id}\'`, (err, item)=>{
+            if(err) throw err;
+            res.render("admin/update", {item, type: "food"});
+        });
+    } else {
+        db.query(`SELECT * FROM Beverages WHERE _id = \'${req.params.id}\'`, (err, item)=>{
+            if(err) throw err;
+            res.render("admin/update", {item, type: "bev"});
+        });
+    }
+});
+
+router.post("/items/change", verify, (req, res) =>{
+    const id = req.body.type;
+    if(id.length === 20){
+        let name = req.body.name,
+                img = req.body.image,
+                description = req.body.description,
+                type1 = req.body.type1,
+                type2 = req.body.type2,
+                price = Number(req.body.price);
+            let sql = `UPDATE Food SET Name = \'${name}\', Image = \'${img}\', DietaryPreference = \'${type1}\', Category = \'${type2}\', Price = ${price}, Description = \'${description}\' WHERE _id = \'${id}\'`;
+            console.log(sql);
+            db.query(sql, (err, result)=>{
+                if(err) throw err;
+                    res.send(`${id.length}`);
+                    //res.redirect(`/admin/items/${id}`);
+                });
+
+    } else {
+        let name = req.body.name,
+                img = req.body.image,
+                description = req.body.description,
+                type1 = req.body.type1,
+                price = Number(req.body.price);
+            let sql = `UPDATE Food SET Name = \'${name}\', Image = \'${img}\', DietaryPreference = \'${type1}\', Price = ${price}, Description = \'${description}\' WHERE _id = \'${id}\'`;
+            console.log(sql);
+            db.query(sql, (err, result)=>{
+                if(err) throw err;
+                    res.send(`${id.length}`);
+                    //res.redirect(`/admin/items/${id}`);
+            });
+
+    }
+
+    // if(id.length === 20){
+    //     let name = req.body.name,
+    //         img = req.body.image,
+    //         description = req.body.description,
+    //         type1 = req.body.type1,
+    //         type2 = req.body.type2,
+    //         price = Number(req.body.price);
+    //     let sql = `UPDATE Food SET Name = \'${name}\', Image = \'${img}\', DietaryPreference = \'${type1}\', Category = \'${type2}\', Price = ${price}, Description = \'${description}\' WHERE _id = \'${id}\'`;
+    //     res.send(sql);
+    //     // db.query(sql, (err, result)=>{
+    //     //     if(err) throw err;
+    //     //     res.send(result);
+    //     //     //res.redirect(`/admin/items/${id}`);
+    //     // });
+    // } if(id.length === 30){
+    //     let name = req.body.name,
+    //         img = req.body.image,
+    //         description = req.body.description,
+    //         type1 = req.body.type1,
+    //         price = Number(req.body.price);
+    //     let sql = `UPDATE Food SET Name = \'${name}\', Image = \'${img}\', DietaryPreference = \'${type1}\', Price = ${price}, Description = \'${description}\' WHERE _id = \'${id}\'`;
+    //     res.send(sql);
+    //     console.log(sql);
+    //     // db.query(sql, (err, result)=>{
+    //     //     if(err) throw err;
+    //     //     res.send(result);
+    //     //     //res.redirect(`/admin/items/${id}`);
+    //     // });
+    // }
+});
 
 module.exports = router;
