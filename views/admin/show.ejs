@@ -1,6 +1,6 @@
 <% include ../partials/header %>
         <div class="menu">
-            <div class="menu__header" style="background-image: url('<%= item[0].Image %></div>');">
+            <div class="menu__header" style="background-image: url('<%= item[0].Image %>');">
                 <div class="menu__header__inner">
                     <div class="container">
                         <h1 class="menu__header__title"><%= item[0].Name %></h1>
@@ -14,8 +14,8 @@
                             <p><%= item[0].Description %></p>
                             <div class="">
                                     <span>
-                                            <span style="font-size: 40px" class="float-lg-right container2"><%= item[0].Price %></span>
-                                        <img style="width: 30px; height: auto ;padding :47px 0 0 0" class="float-lg-right" src="https://img.icons8.com/material-outlined/64/000000/rupee.png">
+                                            <span style="font-size: 40px" class="float-lg-right float-md-right float-sm-right "><%= item[0].Price %></span>
+                                        <img style="width: 30px; height: auto ;padding :47px 0 0 0"  class="float-lg-right float-md-right float-sm-right" src="https://img.icons8.com/material-outlined/64/000000/rupee.png">
                                     </span>
                                 </div>
                             <!-- <div class="">
@@ -38,15 +38,16 @@
                             </ul>
 
                         </div>
-                        <div class="col-sm-12 col-md-12 collg-12">
+                        <div class="col-sm-12 col-md-6 col-lg-6">
                             <a class="btn btn-primary btn-block" href="/admin/items/<%= item[0]._id %>/change">Edit</a>
                         </div>
-                    </div>
-                    <div class="">
+                    
+                    <div class="col-sm-12 col-md-6 col-lg-6">
                         <form class="" action="/admin/items/remove" method="post">
-                            <button type="submit" name="item" value="<%= item[0]._id %>">Delete</button>
+                            <button class="btn-success btn btn-block" type="submit" name="item" value="<%= item[0]._id %>">Delete</button>
                         </form>
                     </div>
+                </div>
                     <!-- <div class="">
                             <span>
                                     <span style="font-size: 40px" class="float-lg-right container2"><%= item[0].Price %></span>
