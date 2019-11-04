@@ -39,7 +39,7 @@ db.connect(err=>{
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 
-seedDB(); //seeding the database
+//seedDB(); //seeding the database
 
 app.use((req, res, next) =>{
     res.locals.username = req.cookies.username;

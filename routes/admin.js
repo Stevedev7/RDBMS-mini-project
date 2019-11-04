@@ -112,59 +112,32 @@ router.post("/items/change", verify, (req, res) =>{
                 type1 = req.body.type1,
                 type2 = req.body.type2,
                 price = Number(req.body.price);
-            let sql = `UPDATE Food SET Name = \'${name}\', Image = \'${img}\', DietaryPreference = \'${type1}\', Category = \'${type2}\', Price = ${price}, Description = \'${description}\' WHERE _id = \'${id}\'`;
-            console.log(sql);
-            db.query(sql, (err, result)=>{
-                if(err) throw err;
-                    res.send(`${id.length}`);
-                    //res.redirect(`/admin/items/${id}`);
-                });
-
+        let sql = `UPDATE Food SET Name = \'${name}\', Image = \'${img}\', DietaryPreference = \'${type1}\', Category = \'${type2}\', Price = ${price}, Description = \'${description}\' WHERE _id = \'${id}\'`;
+        db.query(sql, (err, result)=>{
+            if(err) throw err;
+                res.redirect(`/admin/items/${id}`);
+        });
     } else {
         let name = req.body.name,
                 img = req.body.image,
                 description = req.body.description,
                 type1 = req.body.type1,
                 price = Number(req.body.price);
-            let sql = `UPDATE Food SET Name = \'${name}\', Image = \'${img}\', DietaryPreference = \'${type1}\', Price = ${price}, Description = \'${description}\' WHERE _id = \'${id}\'`;
-            console.log(sql);
-            db.query(sql, (err, result)=>{
-                if(err) throw err;
-                    res.send(`${id.length}`);
-                    //res.redirect(`/admin/items/${id}`);
-            });
-
+        let sql = `UPDATE Beverages SET Name = \'${name}\', Image = \'${img}\', DietaryPreference = \'${type1}\', Price = ${price}, Description = \'${description}\' WHERE _id = \'${id}\'`;
+        db.query(sql, (err, result)=>{
+            if(err) throw err;
+                res.redirect(`/admin/items/${id}`);
+        });
     }
+});
 
-    // if(id.length === 20){
-    //     let name = req.body.name,
-    //         img = req.body.image,
-    //         description = req.body.description,
-    //         type1 = req.body.type1,
-    //         type2 = req.body.type2,
-    //         price = Number(req.body.price);
-    //     let sql = `UPDATE Food SET Name = \'${name}\', Image = \'${img}\', DietaryPreference = \'${type1}\', Category = \'${type2}\', Price = ${price}, Description = \'${description}\' WHERE _id = \'${id}\'`;
-    //     res.send(sql);
-    //     // db.query(sql, (err, result)=>{
-    //     //     if(err) throw err;
-    //     //     res.send(result);
-    //     //     //res.redirect(`/admin/items/${id}`);
-    //     // });
-    // } if(id.length === 30){
-    //     let name = req.body.name,
-    //         img = req.body.image,
-    //         description = req.body.description,
-    //         type1 = req.body.type1,
-    //         price = Number(req.body.price);
-    //     let sql = `UPDATE Food SET Name = \'${name}\', Image = \'${img}\', DietaryPreference = \'${type1}\', Price = ${price}, Description = \'${description}\' WHERE _id = \'${id}\'`;
-    //     res.send(sql);
-    //     console.log(sql);
-    //     // db.query(sql, (err, result)=>{
-    //     //     if(err) throw err;
-    //     //     res.send(result);
-    //     //     //res.redirect(`/admin/items/${id}`);
-    //     // });
-    // }
+router.post("/items/remove", verify, (req, res) =>{
+    const id = req.body.item;
+    let sql = `DELETE FROM ${(id.length ===  20 ? 'Food': 'Beverages')} WHERE _id = \'${req.body.item}\'`;
+    db.query(sql, (err, done) =>{
+        if(err) throw err;
+        res.redirect('/admin/items');
+    });
 });
 
 module.exports = router;

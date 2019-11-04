@@ -36,12 +36,12 @@
                         </div>
                     </div>
                        <!-- price -->
-                       
+
                             <span>
                                     <span style="font-size: 30px" class="float-lg-right container2"><%= item[0].Price %></span>
                                 <img style="width: 30px; height:auto;padding: 40px 0 0 0;" class="float-lg-right container2" src="https://img.icons8.com/material-outlined/64/000000/rupee.png">
                             </span>
-                        
+
                        <!-- <div class="float-lg-right">
                             <span>
                                     <img style="width: 30px; height: auto ;padding: 20px 0;" src="https://img.icons8.com/material-outlined/64/000000/rupee.png">
@@ -50,7 +50,11 @@
                         </div>  -->
                             <!-- price -->
                             <div class=container1>
+                                <form class="" action="/items/<%= item[0]._id %>/order" method="post">
                                 <div class="float-lg-right">
+
+
+
                                         <div class="form-group ">
                                             <button class="btn-success btn btn-block" type="submit" name="button">Order Now</button>
                                         </div>
@@ -60,10 +64,9 @@
                                     <input class="form-control" type="number" name="qty" value=""
                                         placeholder="quantity">
                             </div>
+                            </form>
                         </div>
                     </div>
-
-                    </form>
                 </div>
                 <div class="col-sm-12 col-md-3">
                     <% comments.forEach(comment => { %>
