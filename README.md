@@ -11,7 +11,11 @@ App takes customer reviews for the food
 
 ### To set up the database
 1. Create a database called MyRestaurant
-1. Run the sql query provided in the **query.sql** file int the sql console provided by xampp
+1. Run myqsl server
+1. Run the the following command to seed the Database
+```bash
+$ node seed.js
+```
 1. Run the app
 
 ### To run the app
